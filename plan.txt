@@ -1,0 +1,2 @@
+enemy monsters will have TreasureClass (item drops)
+friendly mosters will have basic equipment (sword + helmet)
