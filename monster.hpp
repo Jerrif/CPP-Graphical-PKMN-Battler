@@ -1,16 +1,19 @@
+#pragma once
+
 #include <string>
 
 class Monster {
 public:
-    std::string monsterName = "DEFAULT NAME"; // TODO: make this const?
+    // constructors
+    Monster(int, std::string);
+    Monster(int);
+    Monster();
 
-    Monster(int, std::string); // constructor
-    Monster(int); // constructor
-    Monster() = default; // constructor
-
-    // int getHealth() { return health; };
     int getHealth();
     void setHealth(int newHealth);
+    std::string getName();
+    int takeDamage(int damageAmount);
 private:
-    int health = 100;
+    int health;
+    std::string monsterName; // TODO: make this const somehow?
 };

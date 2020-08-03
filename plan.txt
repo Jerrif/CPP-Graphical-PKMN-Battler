@@ -1,2 +1,9 @@
+NOTE:
+Regarding the header and cpp files (which come in pairs), #include things necessary for the declaration in the header, and include everything else (necessary for the definition) in the cpp. Also include the corresponding header in its cpp pair too
+
 enemy monsters will have TreasureClass (item drops)
 friendly mosters will have basic equipment (sword + helmet)
+
+
+
+what about a pokemon style/themed roguelike?

@@ -1,8 +1,9 @@
 #include "monster.hpp"
 
-// #include <string>
-// #include <iostream>
+#include <iostream>
+#include <string>
 
+/* constructors */
 Monster::Monster(int hp, std::string name) {
     Monster::health = hp;
     Monster::monsterName = name;
@@ -10,14 +11,37 @@ Monster::Monster(int hp, std::string name) {
 
 Monster::Monster(int hp) {
     Monster::health = hp;
+    Monster::monsterName = "DEFAULT NAME 456";
 }
 
-int Monster::getHealth()
-{
+Monster::Monster() {
+    Monster::health = 100;
+    Monster::monsterName = "DEFAULT NAME 123";
+}
+/* end constructors */
+
+int Monster::getHealth() {
     return Monster::health;
 }
 
-void Monster::setHealth(int newHealth)
-{
+void Monster::setHealth(int newHealth) {
     Monster::health = newHealth;
+}
+
+std::string Monster::getName(){
+    return Monster::monsterName;
+}
+
+int Monster::takeDamage(int damageAmount) {
+    std::cout << "Taking " << damageAmount << " damage!" << std::endl;
+
+    if (health < damageAmount) {
+        auto lastHealth = health;
+        health = 0;
+        return lastHealth;
+    }
+
+    health -= damageAmount;
+
+    return damageAmount;
 }
