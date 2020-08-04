@@ -9,7 +9,7 @@
 
 //TODO: REMEMBER RAII!
 
-int main() {
+int main(int arg, char *argv[]) {
 
     initRNG();
 
@@ -18,10 +18,12 @@ int main() {
     Monster GraceMon(5);
     Monster dood;
 
-    std::vector<Monster> monsters {JMon, MattMon, GraceMon, dood};
-
     doBattle(JMon, MattMon);
     doBattle(JMon, GraceMon);
+    doBattle(JMon, dood);
+
+    // const std::vector<Monster>& monsters = {&JMon, &MattMon, &GraceMon, &dood};
+    // const std::vector<Monster> monsters = {JMon, MattMon, GraceMon, dood};
 
     // for (auto mon : monsters) {
     //     std::cout << ccolor::green << mon.getName() << ccolor::white << " health: " << mon.getHealth() << std::endl;

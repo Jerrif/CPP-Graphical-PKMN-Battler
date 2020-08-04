@@ -20,6 +20,10 @@ Monster::Monster() {
 }
 /* end constructors */
 
+Monster::~Monster() {
+    std::cout << monsterName << "'s Monster destructor called" << std::endl;
+}
+
 int Monster::getHealth() {
     return Monster::health;
 }
@@ -33,7 +37,7 @@ std::string Monster::getName(){
 }
 
 int Monster::takeDamage(int damageAmount) {
-    std::cout << "Taking " << damageAmount << " damage!" << std::endl;
+    // std::cout << "Taking " << damageAmount << " damage!" << std::endl;
 
     if (health < damageAmount) {
         auto lastHealth = health;

@@ -7,3 +7,22 @@ friendly mosters will have basic equipment (sword + helmet)
 
 
 what about a pokemon style/themed roguelike?
+
+
+Battle:
+while (!win condition) [both mons are alive, no one's escaped]:
+    check who's turn it is
+    if player turn:
+        handle player actions?
+        check for battle win conditions (either mon's hp <=0)
+        if win condition = true:
+            handle win (battle end)
+        set turn flag to enemy's turn
+        continue statement?
+    else (if enemy turn):
+        handle enemy actions?
+        check for battle win conditions
+        if win condition = true:
+            handle player loss
+        set turn flag back to player's turn
+end?

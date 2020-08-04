@@ -9,6 +9,8 @@ public:
     Monster(int);
     Monster();
 
+    ~Monster();
+
     int getHealth();
     void setHealth(int newHealth);
     std::string getName();
