@@ -8,6 +8,24 @@ friendly mosters will have basic equipment (sword + helmet)
 
 what about a pokemon style/themed roguelike?
 
+texture:
+the Monster class will load 2 textures: battle front, and battle back.
+[scrap that]
+the Monster class will be an 'abstract' class? So no objects are directly created of that class
+it will have 2 babby(sub) classes:
+    playerMonster
+    wildMonster
+playerMonster loads the battleback sprite
+wildMonster loads the battlefront sprite
+
+
+
+MonsterHandler class
+MH takes in a renderer during its construction
+MH is responsible for creating and returning references to Monsters
+PlayerMonster JMon = MonsterHandler.createPlayerMonster(squirtle, 100);
+
+
 
 Battle:
 while (!win condition) [both mons are alive, no one's escaped]:
