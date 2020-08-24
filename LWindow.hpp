@@ -13,6 +13,9 @@ class LWindow {
     // this will handle winow events such as resize?
     void handleEvent(SDL_Event& e);
 
+    // clear the screen
+    void clearScreen();
+
     // shows window contents
     void render();
 

@@ -62,12 +62,14 @@ void LWindow::free() {
     mHeight = 0;
 }
 
+void LWindow::clearScreen() {
+    // clear screen
+    SDL_SetRenderDrawColor(mRenderer, 0xff, 0xff, 0xff, 0xff);
+    SDL_RenderClear(mRenderer);
+}
+
 void LWindow::render() {
     if(!mMinimized) {
-        // clear screen
-        SDL_SetRenderDrawColor(mRenderer, 0xff, 0xff, 0xff, 0xff);
-        SDL_RenderClear(mRenderer);
-
         // update screen
         SDL_RenderPresent(mRenderer);
     }

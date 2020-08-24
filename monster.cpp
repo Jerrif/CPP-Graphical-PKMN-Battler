@@ -6,8 +6,8 @@
 #include <string>
 
 /* constructors */
-Monster::Monster(int hp, pokemonData& pokemon) {
-// Monster::Monster(SDL_Renderer* renderer, int hp, pokemonData& pokemon) {
+// Monster::Monster(int hp, pokemonData& pokemon) {
+Monster::Monster(SDL_Renderer* renderer, int hp, pokemonData& pokemon) {
 // Monster::Monster(LTexture pokemonTexture, int hp, pokemonData& pokemon) {
     std::cout << "Monster constructor" << std::endl;
     Monster::mHealth = hp;
@@ -15,7 +15,7 @@ Monster::Monster(int hp, pokemonData& pokemon) {
     Monster::mMonsterType = pokemon.type;
     Monster::mFrontSprite = pokemon.battleFrontPath;
     Monster::mBackSprite = pokemon.battleBackPath;
-    // Monster::mRenderer = renderer;
+    Monster::mRenderer = renderer;
 }
 /* end constructors */
 
@@ -53,36 +53,32 @@ int Monster::takeDamage(int damageAmount) {
 /* ==================================== PlayerMonster ==================================== */
 /* ======================================================================================= */
 
-// PlayerMonster::PlayerMonster(SDL_Renderer* ren, int hp, pokemonData& pokemon): Monster(ren, hp, pokemon) {
-// PlayerMonster::PlayerMonster(LTexture& pokemonTexture, int hp, pokemonData& pokemon): Monster(hp, pokemon) {
-PlayerMonster::PlayerMonster(int hp, pokemonData& pokemon): Monster(hp, pokemon) {
+PlayerMonster::PlayerMonster(SDL_Renderer* renderer, int hp, pokemonData& pokemon): Monster(renderer, hp, pokemon) {
+// PlayerMonster::PlayerMonster(int hp, pokemonData& pokemon): Monster(hp, pokemon) {
     std::cout << "PlayerMonster constructor" << std::endl;
-    // PlayerMonster::mRen = ren;
-    // PlayerMonster::mBattleSprite(mRenderer);
-    // PlayerMonster::mBattleSprite();
-    // PlayerMonster::mBattleSprite = pokemonTexture;
-
+    // mBattleSprite.loadFromFile(
 }
 
-// void PlayerMonster::loadSprite(SDL_Renderer* renderer, pokemonData& pokemon) {
+// void PlayerMonster::loadSprite(SDL_Renderer* renderer) {
+void PlayerMonster::loadSprite() {
 // void PlayerMonster::loadSprite(pokemonData& pokemon) {
-//     // mBattleSprite = pokemon.battleBackPath;
-//         printf("Attempting to load PlayerMonster battle sprite\n");
-//         mBattleSprite().loadFromFile(pokemon.battleBackPath);
-//     // if (!PlayerMonster::mBattleSprite.loadFromFile(pokemon.battleBackPath)) {
-//         // printf("Error loading sprite in class PlayerMonster\n");
-//     // }
-// }
+    // mBattleSprite = pokemon.battleBackPath;
+        printf("Attempting to load PlayerMonster battle sprite: %s\n", mBackSprite.c_str());
+        mBattleSprite.loadFromFile(mRenderer, mBackSprite);
+    // if (!PlayerMonster::mBattleSprite.loadFromFile(pokemon.battleBackPath)) {
+        // printf("Error loading sprite in class PlayerMonster\n");
+    // }
+}
 
-// void render(int x, int y) {
-//     printf("Attempting to render PlayerMonster sprite\n");
-//     mBattleSprite.render(x, y);
-// }
+void PlayerMonster::render(int x, int y) {
+    // printf("Attempting to render PlayerMonster sprite: %i\n", mBattleSprite.getWidth());
+    mBattleSprite.render(mRenderer, x, y);
+}
 
 void PlayerMonster::printInfo() {
     printf("Name: %s, Health: %i\n", getName().c_str(), getHealth());
     printf("Type: %s\n", mMonsterType.c_str());
-    // printf("Renderer: %p\n\n", mRenderer);
+    printf("Renderer: %p\n\n", mRenderer);
 }
 
 /* ======================================================================================= */

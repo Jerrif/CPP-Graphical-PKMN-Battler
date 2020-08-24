@@ -19,12 +19,13 @@
 
 //TODO: REMEMBER RAII!
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 1024;
+const int SCREEN_HEIGHT = 768;
 
-pokemonData bulbasaur{"Bulbasaur", "grass", "images/001.png", "images/001b.png"};
-pokemonData charmander{"Charmander", "fire", "images/004.png", "images/004b.png"};
+pokemonData bulbasaur{"Bulbasaur", "grass", "images/001b.png", "images/001.png"};
+pokemonData charmander{"Charmander", "fire", "images/004b.png", "images/004.png"};
 pokemonData squirtle{"Squirtle", "water", "images/007.png", "images/007b.png"};
+// pokemonData squirtle{"Squirtle", "water", "images/cubone.png", "images/cubone.png"};
 
 bool init();
 
@@ -53,18 +54,18 @@ int main(int arg, char *argv[]) {
     printf("Renderer: %p\n\n", renderer);
 
     // PlayerMonster JMon(renderer, 15, squirtle);
-    PlayerMonster JMon(15, squirtle);
+    PlayerMonster JMon(renderer, 15, squirtle);
     printf("R: %p\n\n", renderer);
-    PlayerMonster MattMon(10, charmander);
-    printf("R: %p\n\n", renderer);
-    PlayerMonster dickMon(22, bulbasaur);
-    printf("R: %p\n\n", renderer);
+    // PlayerMonster MattMon(renderer, 10, charmander);
+    // printf("R: %p\n\n", renderer);
+    // PlayerMonster dickMon(renderer, 22, bulbasaur);
+    // printf("R: %p\n\n", renderer);
     JMon.printInfo();
-    MattMon.printInfo();
-    dickMon.printInfo();
+    // MattMon.printInfo();
+    // dickMon.printInfo();
 
-    // JMon.loadSprite(squirtle);
-    // MattMon.loadSprite(charmander);
+    JMon.loadSprite();
+    // MattMon.loadSprite();
 
     // printf("%s, %s\n%s, %s\n", JMon.getName().c_str(), JMon.mBattleSprite.c_str(), MattMon.getName().c_str(), MattMon.mBattleSprite.c_str());
 
@@ -82,6 +83,8 @@ int main(int arg, char *argv[]) {
                 quit = true;
             }
         }
+        gameWindow.clearScreen();
+        JMon.render(100, 100);
         gameWindow.render();
     }
 

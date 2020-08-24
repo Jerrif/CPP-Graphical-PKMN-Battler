@@ -10,8 +10,8 @@
 class Monster {
 public:
     // constructors
-    // Monster(SDL_Renderer* renderer, int hp, pokemonData& pokemon);
-    Monster(int hp, pokemonData& pokemon);
+    Monster(SDL_Renderer* renderer, int hp, pokemonData& pokemon);
+    // Monster(int hp, pokemonData& pokemon);
 
     ~Monster();
 
@@ -19,9 +19,10 @@ public:
     void setHealth(int newHealth);
     std::string getName();
     int takeDamage(int damageAmount);
-    // SDL_Renderer* mRenderer;
 
 protected:
+    SDL_Renderer* mRenderer;
+
     int mHealth;
     std::string mMonsterName; // TODO: make this const somehow?
     std::string mMonsterType;
@@ -38,10 +39,12 @@ class PlayerMonster : public Monster {
 public:
     // PlayerMonster(SDL_Renderer* ren, int hp, pokemonData& pokemon);
     // PlayerMonster(LTexture& pokemonTexture, int hp, pokemonData& pokemon);
-    PlayerMonster(int hp, pokemonData& pokemon);
+    PlayerMonster(SDL_Renderer* renderer, int hp, pokemonData& pokemon);
     // void loadSprite(SDL_Renderer* renderer, pokemonData& pokemon);
+    // void loadSprite(SDL_Renderer* renderer);
+    void loadSprite();
     // void loadSprite(pokemonData& pokemon);
-    // void render(int x, int y);
+    void render(int x, int y);
 
     void printInfo();
 
