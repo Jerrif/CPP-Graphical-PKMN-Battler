@@ -10,8 +10,8 @@ GuiSystem::~GuiSystem() {
     printf("Destructor:\tGuiSystem\n");
 }
 
-void GuiSystem::handleMessage(Message* msg) {
-    switch(msg->type) {
+void GuiSystem::handleMessage(Message& msg) {
+    switch(msg.type) {
         // case Message::GUI_LEFT_PRESSED:
         // printf("Gui system move selection left\n");
         // postMessage(Message::PLAY_SOUND);

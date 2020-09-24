@@ -6,8 +6,6 @@
 #include <iostream>
 #include <string>
 
-// static bool selected = false;
-// Button::Button(std::string pButtonText, Message::types msgType, bool pSelected) : buttonText{pButtonText}, tempMsg{msgType}, selected{pSelected} {
 BattleSystem::BattleSystem(Monster& playerMonster, Monster& enemyMonster) 
 : player{playerMonster}, enemy{enemyMonster} {
     printf("Constructor:\tBattleSystem\n");
@@ -18,8 +16,8 @@ BattleSystem::~BattleSystem() {
 }
 
 void BattleSystem::printMonsters() {
-    printf("%s, %s, %i\n", player.getName().c_str(), player.getType().c_str(), player.getHealth());
-    printf("%s, %s, %i\n", enemy.getName().c_str(), enemy.getType().c_str(), enemy.getHealth());
+    player.printInfo();
+    enemy.printInfo();
 }
 
 void BattleSystem::doBattle() {

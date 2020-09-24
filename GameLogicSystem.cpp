@@ -12,7 +12,7 @@ GameLogicSystem::~GameLogicSystem() {
     printf("Destructor:\tGameLogicSystem\n");
 }
 
-void GameLogicSystem::handleMessage(Message* msg) {
+void GameLogicSystem::handleMessage(Message& msg) {
     if(gameRunning) {
         handleMessageGameRunning(msg);
     } else {
@@ -20,20 +20,18 @@ void GameLogicSystem::handleMessage(Message* msg) {
     }
 }
 
-void GameLogicSystem::handleMessageGamePaused(Message* msg) {
-    switch(msg->type) {
+void GameLogicSystem::handleMessageGamePaused(Message& msg) {
+    switch(msg.type) {
         case Message::GAME_START:
         printf("=====================\n");
         printf("=   GAME STARTING   =\n");
         printf("=====================\n");
         gameRunning = true;
+        postMessage(Message::GUI_MAIN_MENU_CLOSE);
 
         playerMonster = createMonster(bulbasaur);
         printMonsterInfo(playerMonster);
 
-        printf("POSTING MESSAGE: MAIN MENU CLOSE\n");
-        postMessage(Message::GUI_MAIN_MENU_CLOSE);
-        printf("POSTING MESSAGE: BATTLE START\n");
         postMessage(Message::BATTLE_START);
         break;
 
@@ -42,8 +40,8 @@ void GameLogicSystem::handleMessageGamePaused(Message* msg) {
     }
 }
 
-void GameLogicSystem::handleMessageGameRunning(Message* msg) {
-    switch(msg->type) {
+void GameLogicSystem::handleMessageGameRunning(Message& msg) {
+    switch(msg.type) {
         case Message::BATTLE_START:
         {
         startBattle();

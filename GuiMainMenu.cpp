@@ -48,13 +48,12 @@ void GuiMainMenu::selectPreviousButton() {
 
 void GuiMainMenu::confirmSelection() {
     printf("Confirmed button selection: %s\n", buttons[currentSelected]->getButtonText().c_str());
-    // myMsg->type = Message::GAME_START;
-    myMsg->type = buttons[currentSelected]->getButtonMessage();
+    myMsg.type = buttons[currentSelected]->getButtonMessage();
 }
 
-void GuiMainMenu::handleMessage(Message* msg) {
+void GuiMainMenu::handleMessage(Message& msg) {
     if(!mainMenuOpen) {
-        switch(msg->type) {
+        switch(msg.type) {
             case Message::GUI_MAIN_MENU_OPEN:
             mainMenuOpen = true;
             break;
@@ -64,28 +63,29 @@ void GuiMainMenu::handleMessage(Message* msg) {
         }
         return;
     }
-    switch(msg->type) {
+    switch(msg.type) {
         case Message::GUI_UP_PRESSED:
-        printf("\nGuiMainMenu:\tGui up\n");
+        // printf("\nGuiMainMenu:\tGui up\n");
         selectPreviousButton();
         printf("Selected button: %s\n", buttons[currentSelected]->getButtonText().c_str());
         break;
 
         case Message::GUI_DOWN_PRESSED:
-        printf("\nGuiMainMenu:\tGui down\n");
+        // printf("\nGuiMainMenu:\tGui down\n");
         selectNextButton();
         printf("Selected button: %s\n", buttons[currentSelected]->getButtonText().c_str());
         break;
 
         case Message::GUI_ENTER_PRESSED:
-        printf("\nGuiMainMenu:\tGui confirm selection\n");
+        // printf("\nGuiMainMenu:\tGui confirm selection\n");
         confirmSelection();
-        postMessage(myMsg->type);
+        postMessage(myMsg.type);
         break;
 
-        case Message::GAME_START:
-        printf("\nGuiMainMenu:\tGame start message\n");
-        break;
+        // case Message::GAME_START:
+        // printf("\nGuiMainMenu:\tGame start message\n");
+        // mainMenuOpen = false;
+        // break;
 
         case Message::GUI_OPTIONS_OPEN:
         printf("GuiMainMenu:\tGui options open\n");
@@ -96,7 +96,7 @@ void GuiMainMenu::handleMessage(Message* msg) {
         break;
 
         case Message::NULL_MSG:
-        printf("GuiMainMenu:\tHidden message\n");
+        // printf("GuiMainMenu:\tHidden message\n");
         break;
 
         case Message::GUI_MAIN_MENU_CLOSE:

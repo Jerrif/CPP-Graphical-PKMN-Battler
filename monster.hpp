@@ -12,6 +12,7 @@ public:
     int getHealth();
     std::string getType();
     std::string getName();
+    void printInfo();
     void setHealth(int newHealth);
     int takeDamage(int damageAmount);
 

@@ -47,8 +47,6 @@ public:
         BATTLE_END,
         HELLO_WORLD,
         NULL_MSG,
-        SOMETHING_INTERESTING,
-        SOMETHING_ELSE_INTERESTING,
         END
     };
 

@@ -30,28 +30,23 @@ void MessageBus::attachToSystem(System& system) {
 }
 
 // testing out a queue system. This is basically "addToQueue" right now
-void MessageBus::postMessage(Message* msg) {
-    printf("Adding message to queue: %i\n", msg->type);
+void MessageBus::postMessage(Message& msg) {
+    // printf("Adding message to queue: %i\n", msg.type);
     messageQueue[pendingMessages] = msg;
     pendingMessages++;
 }
-// void MessageBus::postMessage(Message* msg) { // THIS WAS THE ORIGINAL ONE
-//     for(int i=0; i < attachedSystems; ++i) {
-//         systems[i]->handleMessage(msg);
-//     }
-// }
 
+// send each message in queue, one by one
 void MessageBus::sendMessages() {
     if(!pendingMessages) {
         return;
     }
     for(int i=0; i < pendingMessages; i++) {
-    printf("Posting message: %i\n", messageQueue[i]->type);
+    // printf("Posting message: %i\n", messageQueue[i].type);
         for(int j=0; j < attachedSystems; ++j) {
             systems[j]->handleMessage(messageQueue[i]);
         }
-        printf("Done posting message: %i\n", messageQueue[i]->type);
+        // printf("Done posting message: %i\n", messageQueue[i].type);
     }
-    printf("Resetting pending messages\n");
     pendingMessages = 0;
 }

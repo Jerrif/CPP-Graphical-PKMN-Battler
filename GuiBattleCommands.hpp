@@ -7,7 +7,7 @@ public:
     GuiBattleCommands();
     ~GuiBattleCommands();
 
-    void handleMessage(Message* msg);
+    void handleMessage(Message& msg);
 
 private:
     enum directions {

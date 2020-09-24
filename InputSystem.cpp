@@ -63,22 +63,22 @@ void InputSystem::handleGuiOpen(SDL_Event &e) {
 void InputSystem::handleGuiClosed(SDL_Event &e) {
     switch(e.key.keysym.sym) {
         case SDLK_LEFT:
-        printf("Input:\t\tLeft pressed\n");
+        // printf("Input:\t\tLeft pressed\n");
         postMessage(Message::PLAYER_MOVE_LEFT);
         break;
 
         case SDLK_RIGHT:
-        printf("Input:\t\tRight pressed\n");
+        // printf("Input:\t\tRight pressed\n");
         postMessage(Message::PLAYER_MOVE_RIGHT);
         break;
 
         case SDLK_UP:
-        printf("Input:\t\tUp pressed\n");
+        // printf("Input:\t\tUp pressed\n");
         postMessage(Message::PLAYER_MOVE_UP);
         break;
 
         case SDLK_DOWN:
-        printf("Input:\t\tDown pressed\n");
+        // printf("Input:\t\tDown pressed\n");
         postMessage(Message::PLAYER_MOVE_DOWN);
         break;
         
@@ -99,35 +99,35 @@ void InputSystem::handleGuiClosed(SDL_Event &e) {
 
 }
 
-void InputSystem::handleMessage(Message* msg) {
-    switch(msg->type) {
+void InputSystem::handleMessage(Message& msg) {
+    switch(msg.type) {
         case Message::GUI_CLOSE:
-        printf("Gui closed\n");
+        // printf("Gui closed\n");
         guiOpen = false;
         break;
 
         case Message::GUI_OPEN:
-        printf("Gui opened\n");
+        // printf("Gui opened\n");
         guiOpen = true;
         break;
 
         case Message::GUI_MAIN_MENU_OPEN:
-        printf("Main menu opened\n");
+        // printf("Main menu opened\n");
         guiOpen = true;
         break;
 
         case Message::GUI_MAIN_MENU_CLOSE:
-        printf("Main menu closed\n");
+        // printf("Main menu closed\n");
         guiOpen = false;
         break;
 
         case Message::BATTLE_MENU_OPEN:
-        printf("Battle menu opened\n");
+        // printf("Battle menu opened\n");
         guiOpen = true;
         break;
 
         case Message::BATTLE_MENU_CLOSE:
-        printf("Battle menu closed\n");
+        // printf("Battle menu closed\n");
         guiOpen = false;
         break;
 

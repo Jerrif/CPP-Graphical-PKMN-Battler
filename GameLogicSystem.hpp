@@ -12,9 +12,9 @@ public:
     GameLogicSystem();
     ~GameLogicSystem();
 
-    void handleMessage(Message* msg);
-    void handleMessageGamePaused(Message* msg);
-    void handleMessageGameRunning(Message* msg);
+    void handleMessage(Message& msg);
+    void handleMessageGamePaused(Message& msg);
+    void handleMessageGameRunning(Message& msg);
 
     void startBattle();
     Monster* createMonster(pokemonData &pokemon);

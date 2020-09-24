@@ -8,7 +8,7 @@ public:
     GuiSystem();
     ~GuiSystem();
 
-    void handleMessage(Message* msg);
+    void handleMessage(Message& msg);
 
 private:
     // enum battleSelections {

@@ -11,7 +11,7 @@ public:
     void handleGuiOpen(SDL_Event &e);
     void handleGuiClosed(SDL_Event &e);
 
-    void handleMessage(Message* msg);
+    void handleMessage(Message& msg);
 
 private:
     bool guiOpen = true;

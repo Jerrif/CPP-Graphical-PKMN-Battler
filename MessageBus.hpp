@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-// #include "Message.hpp"
+#include "Message.hpp"
 // #include "System.hpp"
 // #include "TestSystemOne.hpp"
 
@@ -19,7 +19,7 @@ public:
     ~MessageBus();
 
     void attachToSystem(System& ts);
-    void postMessage(Message* msg);
+    void postMessage(Message& msg);
     void sendMessages();
 
 private:
@@ -30,5 +30,5 @@ private:
 
     static const int MAX_MESSAGES = 12;
     int pendingMessages = 0;
-    Message* messageQueue[MAX_MESSAGES] = {};
+    Message messageQueue[MAX_MESSAGES];
 };

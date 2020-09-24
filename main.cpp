@@ -6,6 +6,7 @@
 #include "Message.hpp"
 #include "MessageBus.hpp"
 #include "System.hpp"
+#include "MessageConsole.hpp"
 #include "InputSystem.hpp"
 #include "AudioSystem.hpp"
 #include "GuiSystem.hpp"
@@ -39,20 +40,19 @@ int main(int arg, char *argv[]) {
 
     MessageBus* msgBus = new MessageBus{};
 
+    MessageConsole messageConsole{};
     InputSystem inputSystem{};
     AudioSystem audioSystem{};
     GuiMainMenu guiMainMenu{};
     GuiBattleCommands guiBattleCommands{};
     GameLogicSystem gameLogicSystem{};
 
+    msgBus->MessageBus::attachToSystem(messageConsole);
     msgBus->MessageBus::attachToSystem(inputSystem);
     msgBus->MessageBus::attachToSystem(audioSystem);
     msgBus->MessageBus::attachToSystem(guiMainMenu);
     msgBus->MessageBus::attachToSystem(guiBattleCommands);
     msgBus->MessageBus::attachToSystem(gameLogicSystem);
-
-    Message* msg = new Message{};
-    msg->type = Message::HELLO_WORLD;
 
     if( !init() ) {
         printf("Yo can't init SDL stuff\n");

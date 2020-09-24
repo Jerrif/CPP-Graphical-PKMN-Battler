@@ -7,7 +7,7 @@ public:
     AudioSystem();
     ~AudioSystem();
 
-    void handleMessage(Message* msg);
+    void handleMessage(Message& msg);
 
     void playSound(std::string soundPath);
 

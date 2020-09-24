@@ -14,11 +14,11 @@ class System {
 public:
     virtual ~System();
 
-    virtual void handleMessage(Message* msg) = 0;
+    virtual void handleMessage(Message& msg) = 0;
     void postMessage(Message::types messageType);
 
 protected:
     MessageBus* msgBus;
     // each derived class of this will have its own instance of Message
-    Message* myMsg = new Message{};
+    Message myMsg {};
 };

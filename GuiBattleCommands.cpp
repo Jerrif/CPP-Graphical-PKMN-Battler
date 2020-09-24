@@ -78,12 +78,12 @@ void GuiBattleCommands::selectNextButton(directions direction) {
 void GuiBattleCommands::confirmSelection() {
     printf("Confirmed button selection: %s\n", buttons[currentSelectedX][currentSelectedY]->getButtonText().c_str());
     // myMsg->type = Message::GAME_START;
-    myMsg->type = buttons[currentSelectedX][currentSelectedY]->getButtonMessage();
+    myMsg.type = buttons[currentSelectedX][currentSelectedY]->getButtonMessage();
 }
 
-void GuiBattleCommands::handleMessage(Message* msg) {
+void GuiBattleCommands::handleMessage(Message& msg) {
     if(!battleMenuOpen) {
-        switch(msg->type) {
+        switch(msg.type) {
             case Message::BATTLE_MENU_OPEN:
             battleMenuOpen = true;
             break;
@@ -93,59 +93,59 @@ void GuiBattleCommands::handleMessage(Message* msg) {
         }
         return;
     }
-    switch(msg->type) {
+    switch(msg.type) {
         case Message::GUI_UP_PRESSED:
-        printf("\nGuiBattleCommands:\tGui up\n");
+        // printf("\nGuiBattleCommands:\tGui up\n");
         direction = UP;
         selectNextButton(direction);
         printf("Selected button: %s\n", buttons[currentSelectedX][currentSelectedY]->getButtonText().c_str());
         break;
 
         case Message::GUI_DOWN_PRESSED:
-        printf("\nGuiBattleCommands:\tGui down\n");
+        // printf("\nGuiBattleCommands:\tGui down\n");
         direction = DOWN;
         selectNextButton(direction);
         printf("Selected button: %s\n", buttons[currentSelectedX][currentSelectedY]->getButtonText().c_str());
         break;
 
         case Message::GUI_LEFT_PRESSED:
-        printf("\nGuiBattleCommands:\tGui left\n");
+        // printf("\nGuiBattleCommands:\tGui left\n");
         direction = LEFT;
         selectNextButton(direction);
         printf("Selected button: %s\n", buttons[currentSelectedX][currentSelectedY]->getButtonText().c_str());
         break;
 
         case Message::GUI_RIGHT_PRESSED:
-        printf("\nGuiBattleCommands:\tGui right\n");
+        // printf("\nGuiBattleCommands:\tGui right\n");
         direction = RIGHT;
         selectNextButton(direction);
         printf("Selected button: %s\n", buttons[currentSelectedX][currentSelectedY]->getButtonText().c_str());
         break;
 
         case Message::GUI_ENTER_PRESSED:
-        printf("\nGuiBattleCommands:\tGui confirm selection\n");
+        // printf("\nGuiBattleCommands:\tGui confirm selection\n");
         confirmSelection();
-        postMessage(myMsg->type);
+        postMessage(myMsg.type);
         break;
 
         case Message::BATTLE_MENU_FIGHT:
-        printf("\nGuiBattleCommands:\tFight\n");
+        // printf("\nGuiBattleCommands:\tFight\n");
         break;
 
         case Message::BATTLE_MENU_BAG:
-        printf("GuiBattleCommands:\tBag\n");
+        // printf("GuiBattleCommands:\tBag\n");
         break;
 
         case Message::BATTLE_MENU_PKMN:
-        printf("GuiBattleCommands:\tPKMN\n");
+        // printf("GuiBattleCommands:\tPKMN\n");
         break;
 
         case Message::BATTLE_MENU_RUN:
-        printf("GuiBattleCommands:\tRun\n");
+        // printf("GuiBattleCommands:\tRun\n");
         break;
 
         case Message::BATTLE_MENU_CLOSE:
-        printf("GuiBattleCommands:\tBattle menu closed\n");
+        // printf("GuiBattleCommands:\tBattle menu closed\n");
         battleMenuOpen = false;
         break;
 

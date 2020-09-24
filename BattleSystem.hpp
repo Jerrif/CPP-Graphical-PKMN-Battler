@@ -1,7 +1,5 @@
 #pragma once
 
-// #include "Monster.hpp"
-
 #include <iostream>
 #include <string>
 

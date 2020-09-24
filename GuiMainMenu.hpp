@@ -7,7 +7,7 @@ public:
     GuiMainMenu();
     ~GuiMainMenu();
 
-    void handleMessage(Message* msg);
+    void handleMessage(Message& msg);
 
 private:
 
