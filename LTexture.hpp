@@ -19,7 +19,8 @@ public:
     bool loadFromRenderedText(SDL_Renderer* renderer, std::string textureText, SDL_Color textColor, TTF_Font* font);
 
     // renders the texture to mRenderer
-    void render(SDL_Renderer* renderer, int x, int y);
+    // void render(SDL_Renderer* renderer, int x, int y);
+    void render(SDL_Renderer* renderer, int x, int y, SDL_Rect* sourceRenderQuad = NULL, bool stretchToViewport = false);
 
     int getWidth();
     int getHeight();

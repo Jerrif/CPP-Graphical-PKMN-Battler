@@ -3,16 +3,25 @@
 #include "LTexture.hpp" // maybe don't need here?
 
 // logic includes
-#include "Monster.hpp"
-#include "RNG.hpp"
-#include "Battle.hpp"
+#include "Message.hpp"
+#include "MessageBus.hpp"
+#include "System.hpp"
+#include "InputSystem.hpp"
+#include "AudioSystem.hpp"
+#include "GuiSystem.hpp"
+#include "GuiMainMenu.hpp"
+#include "GuiBattleCommands.hpp"
+#include "GameLogicSystem.hpp"
 
+// data includes
 #include "CharacterData.hpp"
 
+// SDL / framework includes
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+// standard library includes
 #include <iostream>
 #include <vector>
 #include <string>
@@ -22,24 +31,31 @@
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 768;
 
-pokemonData bulbasaur{"Bulbasaur", "grass", "images/001b.png", "images/001.png"};
-pokemonData charmander{"Charmander", "fire", "images/004b.png", "images/004.png"};
-pokemonData squirtle{"Squirtle", "water", "images/007.png", "images/007b.png"};
-// pokemonData squirtle{"Squirtle", "water", "images/cubone.png", "images/cubone.png"};
-
 bool init();
-
 
 int main(int arg, char *argv[]) {
 
-    // printf("%s: %s\n", bulbasaur.name.c_str(), bulbasaur.type.c_str());
+    LWindow gameWindow{SCREEN_WIDTH, SCREEN_HEIGHT};
 
-    LWindow gameWindow(SCREEN_WIDTH, SCREEN_HEIGHT);
+    MessageBus* msgBus = new MessageBus{};
 
-    initRNG();
+    InputSystem inputSystem{};
+    AudioSystem audioSystem{};
+    GuiMainMenu guiMainMenu{};
+    GuiBattleCommands guiBattleCommands{};
+    GameLogicSystem gameLogicSystem{};
+
+    msgBus->MessageBus::attachToSystem(inputSystem);
+    msgBus->MessageBus::attachToSystem(audioSystem);
+    msgBus->MessageBus::attachToSystem(guiMainMenu);
+    msgBus->MessageBus::attachToSystem(guiBattleCommands);
+    msgBus->MessageBus::attachToSystem(gameLogicSystem);
+
+    Message* msg = new Message{};
+    msg->type = Message::HELLO_WORLD;
 
     if( !init() ) {
-        printf("Yo can't init SDL stuff");
+        printf("Yo can't init SDL stuff\n");
         return EXIT_FAILURE;
     }
 
@@ -48,26 +64,8 @@ int main(int arg, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // const auto renderer = gameWindow.getRenderer();
-    SDL_Renderer* renderer = gameWindow.getRenderer();
-
-    printf("Renderer: %p\n\n", renderer);
-
-    // PlayerMonster JMon(renderer, 15, squirtle);
-    PlayerMonster JMon(renderer, 15, squirtle);
-    printf("R: %p\n\n", renderer);
-    // PlayerMonster MattMon(renderer, 10, charmander);
-    // printf("R: %p\n\n", renderer);
-    // PlayerMonster dickMon(renderer, 22, bulbasaur);
-    // printf("R: %p\n\n", renderer);
-    JMon.printInfo();
-    // MattMon.printInfo();
-    // dickMon.printInfo();
-
-    JMon.loadSprite();
-    // MattMon.loadSprite();
-
-    // printf("%s, %s\n%s, %s\n", JMon.getName().c_str(), JMon.mBattleSprite.c_str(), MattMon.getName().c_str(), MattMon.mBattleSprite.c_str());
+    const auto renderer = gameWindow.getRenderer();
+    std::cout << "Renderer: " << &renderer << "\n" << std::endl;
 
     SDL_Event e;
     bool quit = false;
@@ -82,16 +80,13 @@ int main(int arg, char *argv[]) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
+            inputSystem.handleInput(e);
         }
+        msgBus->sendMessages();
+
         gameWindow.clearScreen();
-        JMon.render(100, 100);
         gameWindow.render();
     }
-
-
-    // doBattle(JMon, MattMon);
-    // doBattle(JMon, GraceMon);
-    // doBattle(JMon, dood);
 
     return EXIT_SUCCESS;
 }
@@ -103,7 +98,8 @@ bool init() {
         return false;
     }
     //Set texture filtering to linear
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+    // if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0")) { // this isn't actually linear texture filtering I think
         printf("Warning: Linear texture filtering not enabled!");
     }
     //Initialize PNG loading

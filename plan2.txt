@@ -1,0 +1,78 @@
+Key: -> means 'sends message'
+     <- 'recieves message'
+
+input handler class:
+keeps track of various game state, and determines which message to send (based on keypress, obviously)
+OR
+basically just a wrapper for [while (SDL_PollEvent(&e) != 0)]?
+
+so I have two options on implementing this:
+1. input handler keeps track of whether the GUI is open or not, and sends messages accordingly
+OR
+2. on a keypress, sends a message with that key?
+
+1.
+inputSystem.handleInput(LEFT) {
+     if GUI closed:
+          inputSystem -> MOVE_LEFT
+               playerSystem <- MOVE_LEFT
+                    move player left
+     else (GUI open):
+          inputSystem -> GUI_LEFT_PRESS
+               guiSystem <- GUI_LEFT_PRESS
+                    move gui selection left
+}
+
+2.
+inputSystem.handleInput(LEFT) {
+     inputSystem -> LEFT_PRESSED
+          guiSystem <- LEFT_PRESSED
+               if GUI closed:
+                    ignore
+               if GUI open:
+                    move gui selection left
+          player system <- LEFT_PRESSED
+               if GUI closed:
+                    move player left
+               if GUI open:
+                    ignore
+}
+
+
+
+Gui class (abstract class) child of the abstract class System
+MainMenu class : Gui class
+BattleMenu class : Gui class
+
+Button class
+     LTexture* selected
+     LTexture* unselected
+     int x
+     int y
+
+
+struct pokemonData {
+    std::string name;
+    std::string type; // should this be an enum maybe? or its own typedef
+    std::string battleFrontPath;
+    std::string battleBackPath;
+};
+
+pokemonData bulbasaur{"Bulbasaur", "grass", "images/001.png", "images/001b.png"};
+pokemonData charmander{"Charmander", "fire", "images/004.png", "images/004b.png"};
+pokemonData squirtle{"Squirtle", "water", "images/007.png", "images/007b.png"};
+pokemonData meowth{"Meowth", "normal", "images/052.png", "images/052b.png"};
+pokemonData magnemite{"Magnemite", "steel", "images/081.png", "images/081b.png"};
+
+
+things we need for the battle:
+player pokemon
+wild pokemon
+battle UI
+
+
+game logic -> battle start
+    scene handler <- battle start
+    gui <- battle start
+
+

@@ -27,6 +27,26 @@ PlayerMonster JMon = MonsterHandler.createPlayerMonster(squirtle, 100);
 
 
 
+GUI:
+UserInterface class (should this be called "scene"? "SceneHandler"?)
+Keeps track of which scene is currently loaded? (only one: battle, for now)
+unloads / switches scenes (battle UI, items menu, overworld, etc)
+creates and holds references(?) to viewports
+when an image wants to render, it .... TODO?
+
+create the window/renderer
+create the playerMonster/wildMonster
+call SceneHandler.createBattleScene(renderer, playerMonster, wildMonster)
+battle/turn logic
+SceneHandler is responsible for rendering to screen?
+
+
+
+Scene class:
+
+
+
+
 Battle:
 while (!win condition) [both mons are alive, no one's escaped]:
     check who's turn it is

@@ -1,3 +1,5 @@
+#include "RNG.hpp"
+
 #include <iostream>
 #include <time.h>
 #include <random>

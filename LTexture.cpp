@@ -7,15 +7,16 @@
 
 // LTexture::LTexture(SDL_Renderer* r) {
 LTexture::LTexture() {
-    printf("LTexture constructor!\n");
+    printf("Constructor:\tLTexture\n");
     // mRenderer = r;
+    mTexture = NULL;
     mWidth = 0;
     mHeight = 0;
 }
 
 LTexture::~LTexture() {
-    printf("LTexture destructor!\n");
-    // free();
+    printf("Destructor:\tLTexture\n");
+    free();
 }
 
 bool LTexture::loadFromFile(SDL_Renderer* renderer, std::string path) {
@@ -55,19 +56,39 @@ bool LTexture::loadFromRenderedText(SDL_Renderer* renderer, std::string textureT
     return false;
 }
 
-void LTexture::render(SDL_Renderer* renderer, int x, int y) {
+// void LTexture::render(SDL_Renderer* renderer, int x, int y, SDL_Rect* sourceRenderQuad = NULL, SDL_Rect* destRenderQuad = NULL) {
+void LTexture::render(SDL_Renderer* renderer, int x, int y, SDL_Rect* sourceRenderQuad, bool stretchToViewport) {
     if (mTexture == NULL || renderer == NULL) {
-        printf("mTexture or mRenderer was NULL when attempting to render a sprite to screen");
+        printf("mTexture or mRenderer was NULL when attempting to render a sprite to screen\n");
         return;
     }
 
     // sets the rendering space and render to screen
     // TODO: is this inefficient? is it remaking this every time? should these be references?
-    // this is if you want to render only a portion of the texture (like in a sprite sheet)
-    // SDL_Rect renderQuad = {x, y, mWidth, mHeight};
+    SDL_Rect destRenderQuad = {x, y, mWidth, mHeight};
+    SDL_Rect temp;
 
-    SDL_RenderCopy(renderer, mTexture, NULL, NULL);
-    // SDL_RenderCopyEx(mRenderer, mTexture, NULL, NULL, NULL, NULL, NULL);
+    // testing a way to make sprites move off the left/top edges of the screen
+    // basically, it clips the sprite (using &sourceRenderQuad) by the amount that x/y is < 0
+    // NOTE: this might come back to bite me when I do anything with sprite sheets / source clipping
+    if (x < 0 || y < 0) {
+        if (sourceRenderQuad == NULL) {
+            temp = destRenderQuad;
+            sourceRenderQuad = &temp;
+        }
+        sourceRenderQuad->x = std::abs(x);
+        sourceRenderQuad->y = std::abs(y);
+    }
+
+    // this is if you want to render only a portion of the texture (like in a sprite sheet)
+    // SDL_Rect sourceRenderQuad = {x, y, mWidth, mHeight};
+
+    if (stretchToViewport) {
+        SDL_RenderCopy(renderer, mTexture, sourceRenderQuad, NULL);
+    } else {
+        SDL_RenderCopy(renderer, mTexture, sourceRenderQuad, &destRenderQuad);
+    }
+
 }
 
 int LTexture::getWidth() {
@@ -80,6 +101,7 @@ int LTexture::getHeight() {
 
 void LTexture::free() {
     if (mTexture != NULL) {
+        printf("Freeing LTexture\n");
         SDL_DestroyTexture(mTexture);
         mTexture = NULL;
         mWidth = 0;

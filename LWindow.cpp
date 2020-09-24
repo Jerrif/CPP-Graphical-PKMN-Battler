@@ -34,7 +34,7 @@ bool LWindow::init() {
     }
 
     // init renderer color
-    SDL_SetRenderDrawColor(mRenderer, 0xff, 0xff, 0xff, 0xff);
+    SDL_SetRenderDrawColor(mRenderer, 0x00, 0x00, 0x00, 0x00);
 
     // grab window identifier
     mWindowID = SDL_GetWindowID(mWindow);
@@ -64,7 +64,7 @@ void LWindow::free() {
 
 void LWindow::clearScreen() {
     // clear screen
-    SDL_SetRenderDrawColor(mRenderer, 0xff, 0xff, 0xff, 0xff);
+    SDL_SetRenderDrawColor(mRenderer, 0x00, 0x00, 0x00, 0x00);
     SDL_RenderClear(mRenderer);
 }
 

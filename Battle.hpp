@@ -1,12 +1,15 @@
-#pragma once
+// #pragma once
 
-#include "Monster.hpp"
+// #include "Monster.hpp"
 
-#include <iostream>
-#include <string>
+// #include <iostream>
+// #include <string>
 
-void doBattle(Monster& player, Monster& enemy);
-bool battleOver(Monster& player, Monster& enemy);
-bool escapeFromBattle(Monster& mon); // TODO: implement this
-void handlePlayerTurn(Monster& player, Monster& enemy);
-void handleEnemyTurn(Monster& player, Monster& enemy);
+// // just a test for now
+// void playBattle(Monster& player, Monster& enemy);
+
+// void doBattle(Monster& player, Monster& enemy);
+// bool battleOver(Monster& player, Monster& enemy);
+// bool escapeFromBattle(Monster& mon);
+// void handlePlayerTurn(Monster& player, Monster& enemy);
+// void handleEnemyTurn(Monster& player, Monster& enemy);
