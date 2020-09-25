@@ -8,12 +8,29 @@
 
 BattleSystem::BattleSystem(Monster& playerMonster, Monster& enemyMonster) 
 : player{playerMonster}, enemy{enemyMonster} {
+// BattleSystem::BattleSystem() {
     printf("Constructor:\tBattleSystem\n");
 }
 
 BattleSystem::~BattleSystem() {
     printf("Destructor:\tBattleSystem\n");
 }
+
+void BattleSystem::handleMessage(Message& msg) {
+    switch (msg.type) {
+        case Message::BATTLE_MENU_OPEN:
+        
+        break;
+    
+        default:
+        break;
+    }
+}
+
+// void BattleSystem::initBattle(Monster& playerMonster, Monster& enemyMonster) {
+    // player = playerMonster;
+    // enemy = enemyMonster;
+// }
 
 void BattleSystem::printMonsters() {
     player.printInfo();
@@ -44,9 +61,12 @@ void BattleSystem::handlePlayerTurn() {
 
     // TODO: change battle menu selection in the battle GUI
 
+
     // if (selected && sceneHandler.selectedOption == 1) {
     // TODO: this will be something like: if(MSG == PLAYER_ATTACK) {
         std::cout << "\nPLAYER TURN" << std::endl;
+    std::string poop;
+    std::cin >> poop;
         std::cout << "-----------------\nHealth: " << player.getHealth() << ", Enemy health: " << enemy.getHealth() << std::endl;
         std::cout << "You attack! Enemy takes " << enemy.takeDamage(getRandomInt(1, 4)) << " damage" << std::endl;
         isPlayerTurn = false;

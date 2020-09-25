@@ -76,3 +76,6 @@ game logic -> battle start
     gui <- battle start
 
 
+
+gameLogicSystem should probably be used right from the start
+it should be responsible for opening up the main menu when the game is launched

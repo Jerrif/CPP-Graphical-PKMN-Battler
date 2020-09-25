@@ -13,6 +13,7 @@
 #include "GuiMainMenu.hpp"
 #include "GuiBattleCommands.hpp"
 #include "GameLogicSystem.hpp"
+#include "BattleSystem.hpp"
 
 // data includes
 #include "CharacterData.hpp"
@@ -46,6 +47,7 @@ int main(int arg, char *argv[]) {
     GuiMainMenu guiMainMenu{};
     GuiBattleCommands guiBattleCommands{};
     GameLogicSystem gameLogicSystem{};
+    // BattleSystem battleSystem{};
 
     msgBus->MessageBus::attachToSystem(messageConsole);
     msgBus->MessageBus::attachToSystem(inputSystem);
@@ -53,6 +55,7 @@ int main(int arg, char *argv[]) {
     msgBus->MessageBus::attachToSystem(guiMainMenu);
     msgBus->MessageBus::attachToSystem(guiBattleCommands);
     msgBus->MessageBus::attachToSystem(gameLogicSystem);
+    // msgBus->MessageBus::attachToSystem(battleSystem);
 
     if( !init() ) {
         printf("Yo can't init SDL stuff\n");

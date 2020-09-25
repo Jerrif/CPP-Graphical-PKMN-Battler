@@ -5,12 +5,11 @@
 
 #include "Message.hpp"
 // #include "System.hpp"
-// #include "TestSystemOne.hpp"
 
 // Every system that needs to recieve messages needs to be included here
 // ^ WRONG! every system needs to be forward declared here
 
-class System; // forward declaring TestSystem
+class System;
 class Message;
 
 class MessageBus {
@@ -19,12 +18,14 @@ public:
     ~MessageBus();
 
     void attachToSystem(System& ts);
+    void detachSystem(System& system);
     void postMessage(Message& msg);
     void sendMessages();
+    void printSystemAddresses();
 
 private:
     // this is just some arbitrary number I picked right now
-    static const int MAX_SYSTEMS = 10;
+    static const int MAX_SYSTEMS = 12;
     int attachedSystems = 0;
     System* systems[MAX_SYSTEMS] = {};
 

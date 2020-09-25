@@ -2,7 +2,7 @@
 
 #include "System.hpp"
 #include "CharacterData.hpp"
-// #include "BattleSystem.hpp"
+#include "BattleSystem.hpp"
 // #include "Monster.hpp"
 
 class Monster;
@@ -16,9 +16,19 @@ public:
     void handleMessageGamePaused(Message& msg);
     void handleMessageGameRunning(Message& msg);
 
-    void startBattle();
-    Monster* createMonster(pokemonData &pokemon);
+    Monster* createPlayerMonster(pokemonData &pokemon);
+    Monster* createWildMonster(pokemonData &pokemon);
+    void destroyPlayerMonster();
+    void destroyWildMonster();
+
     void printMonsterInfo(Monster* m);
+
+    void attachToMessageBus();
+    void detachFromMessageBus();
+    BattleSystem* createBattle(Monster& playerMonster, Monster& wildMonster);
+
+    void startBattle();
+    void endBattle();
 
 private:
 
@@ -31,5 +41,6 @@ private:
     bool gameRunning = false;
     bool inBattle = false;
     Monster* playerMonster;
-    // Monster* wildMonster;
+    Monster* wildMonster;
+    BattleSystem* activeBattle {};
 };

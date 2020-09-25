@@ -1,7 +1,6 @@
 #include "MessageBus.hpp"
 #include "Message.hpp"
 #include "System.hpp"
-// #include "TestSystemOne.hpp"
 
 #include <iostream>
 
@@ -11,6 +10,27 @@ MessageBus::MessageBus() {
 
 MessageBus::~MessageBus() {
     printf("Destructor:\tMessageBus\n");
+}
+
+void MessageBus::printSystemAddresses() {
+    // just for debugging
+    for(int i=0; i < MAX_SYSTEMS; ++i) {
+        if(systems[i] != NULL) {
+            std::cout << "System: " << &systems[i] << std::endl;
+            std::cout << "System: " << systems[i] << std::endl;
+        }
+    }
+}
+
+void MessageBus::detachSystem(System& system) {
+    // for now, this is used just for detaching a battle when it is over
+    for(int i=0; i < MAX_SYSTEMS; ++i) {
+        if(systems[i] != NULL && systems[i] == &system) {
+            std::cout << "Detaching system: " << i << " at: " << systems[i] << std::endl;
+            systems[i] = NULL;
+            attachedSystems--;
+        }
+    }
 }
 
 void MessageBus::attachToSystem(System& system) {
