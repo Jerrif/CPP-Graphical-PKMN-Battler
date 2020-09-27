@@ -4,7 +4,6 @@
 #include "BattleSystem.hpp"
 #include <iostream>
 #include <cassert>
-// #include "assert.h"
 
 GameLogicSystem::GameLogicSystem() {
     printf("Constructor:\tGameLogicSystem\n");
@@ -13,6 +12,12 @@ GameLogicSystem::GameLogicSystem() {
 
 GameLogicSystem::~GameLogicSystem() {
     printf("Destructor:\tGameLogicSystem\n");
+}
+
+void GameLogicSystem::update() {
+    // if(inBattle) {
+    //     activeBattle->updateBattle();
+    // }
 }
 
 void GameLogicSystem::handleMessage(Message& msg) {
@@ -58,7 +63,6 @@ void GameLogicSystem::handleMessageGameRunning(Message& msg) {
         if(inBattle) {
             printf("Ending battle from GameLogicSystem\n");
             endBattle(activeBattle);
-            printf("Battle finally ended in gamelogic\n");
         }
         break;
 
@@ -71,7 +75,6 @@ void GameLogicSystem::startBattle() {
     printf("=====================\n");
     printf("=  BATTLE STARTING  =\n");
     printf("=====================\n");
-    inBattle = true;
     postMessage(Message::BATTLE_MENU_OPEN);
 
     wildMonster = createWildMonster(magnemite);
@@ -79,7 +82,7 @@ void GameLogicSystem::startBattle() {
     // attachToMessageBus(activeBattle); // this should probably go in createBattle
     activeBattle->printMonsters();
 
-    // endBattle(activeBattle);
+    inBattle = true;
 }
 
 BattleSystem* GameLogicSystem::createBattle(Monster& pPlayerMonster, Monster& pWildMonster) {

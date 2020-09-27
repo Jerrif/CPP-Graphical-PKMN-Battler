@@ -25,11 +25,13 @@ public:
 
     void initBattle();
 
-    void doBattle();
+    void updateBattle();
     bool isBattleOver();
     bool escapeFromBattle();
     void handlePlayerTurn();
     void handleEnemyTurn();
+
+    Monster& getWinner();
 
 private:
     bool battleRunning = true;
@@ -40,10 +42,6 @@ private:
 
     Monster& player;
     Monster& enemy;
-    // Monster* player = new Monster{50, magnemite}; // JUST DOING THIS FOR NOW TO SILENCE ERRORS
-    // Monster* enemy = new Monster{100, magnemite};// ITS BAD AND NEEDS TO BE THOUGHT THROUGH
-    // Monster* player;
-    // Monster* enemy;
 
     // bool battleOver = false;
 };

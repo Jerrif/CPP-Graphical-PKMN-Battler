@@ -19,6 +19,14 @@ public:
 
     Monster* createPlayerMonster(pokemonData &pokemon);
     Monster* createWildMonster(pokemonData &pokemon);
+    BattleSystem* createBattle(Monster& playerMonster, Monster& wildMonster);
+    void startBattle(); // necessary?
+    void endBattle(System* battle);
+
+    void update();
+
+private:
+
     void destroyPlayerMonster();
     void destroyWildMonster();
 
@@ -27,11 +35,11 @@ public:
     void attachToMessageBus(System* s);
     void detachFromMessageBus(System* s);
 
-    BattleSystem* createBattle(Monster& playerMonster, Monster& wildMonster);
-    void startBattle(); // necessary?
-    void endBattle(System* battle);
-
-private:
+    bool gameRunning = false;
+    bool inBattle = false;
+    Monster* playerMonster;
+    Monster* wildMonster;
+    BattleSystem* activeBattle {};
 
     pokemonData bulbasaur{"Bulbasaur", "grass", "images/001.png", "images/001b.png"};
     pokemonData charmander{"Charmander", "fire", "images/004.png", "images/004b.png"};
@@ -39,9 +47,4 @@ private:
     pokemonData meowth{"Meowth", "normal", "images/052.png", "images/052b.png"};
     pokemonData magnemite{"Magnemite", "steel", "images/081.png", "images/081b.png"};
 
-    bool gameRunning = false;
-    bool inBattle = false;
-    Monster* playerMonster;
-    Monster* wildMonster;
-    BattleSystem* activeBattle {};
 };

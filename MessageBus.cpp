@@ -56,11 +56,9 @@ void MessageBus::sendMessages() {
         return;
     }
     for(int i=0; i < pendingMessages; i++) {
-        // for(auto & system : systems) {
         for(size_t j = 0; j < systems.size(); ++j ) {
             systems[j]->handleMessage(messageQueue[i]);
         }
-        // printf("Done posting message: %i\n", messageQueue[i].type);
     }
     pendingMessages = 0;
 }

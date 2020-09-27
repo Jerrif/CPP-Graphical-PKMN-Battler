@@ -87,6 +87,7 @@ int main(int arg, char *argv[]) {
             inputSystem.handleInput(e);
         }
         msgBus->sendMessages();
+        // gameLogicSystem.update();
 
         gameWindow.clearScreen();
         gameWindow.render();

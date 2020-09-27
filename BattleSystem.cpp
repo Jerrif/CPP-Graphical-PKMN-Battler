@@ -21,8 +21,14 @@ BattleSystem::~BattleSystem() {
 
 void BattleSystem::handleMessage(Message& msg) {
     switch (msg.type) {
-        case Message::BATTLE_MENU_OPEN:
-        
+        case Message::BATTLE_MENU_FIGHT:
+        if(!isBattleOver()) {
+            updateBattle();
+        } else {
+            printf("BATTLE OVER!\n");
+            battleRunning = false;
+            postMessage(Message::BATTLE_END);
+        }
         break;
 
         case Message::BATTLE_MENU_RUN:
@@ -45,43 +51,43 @@ void BattleSystem::printMonsters() {
     enemy.printInfo();
 }
 
-void BattleSystem::doBattle() {
-    while (!isBattleOver()) {
-        if (isPlayerTurn) {
-            handlePlayerTurn();
-        } else {
-            handleEnemyTurn();
-        }
+void BattleSystem::updateBattle() {
+    if(!isBattleOver()) {
+        handlePlayerTurn();
     }
-    std::cout << "\nBATTLE OVER!" << std::endl;
+    if(!isBattleOver()) {
+        handleEnemyTurn();
+    }
+    if(isBattleOver()) {
+        battleRunning = false;
+        printf("BATTLE OVER!123\n");
+        postMessage(Message::BATTLE_END);
+    }
 }
 
 bool BattleSystem::isBattleOver() { 
-    if (player.getHealth() <= 0 || enemy.getHealth() <= 0)
+    if (player.getHealth() <= 0 || enemy.getHealth() <= 0) {
+        Monster& winner = getWinner();
+        printf("Winner:\t");
+        winner.printInfo();
         return true;
-
+    }
     return false;
-    
-    // return escapeFromBattle();
+}
+
+Monster& BattleSystem::getWinner() {
+    if(player.getHealth() <= 0) {
+        return enemy;
+    } else {
+        return player;
+    }
 }
 
 void BattleSystem::handlePlayerTurn() {
-
-    // TODO: change battle menu selection in the battle GUI
-
-
-    // if (selected && sceneHandler.selectedOption == 1) {
-    // TODO: this will be something like: if(MSG == PLAYER_ATTACK) {
-        std::cout << "\nPLAYER TURN" << std::endl;
-    std::string poop;
-    std::cin >> poop;
-        std::cout << "-----------------\nHealth: " << player.getHealth() << ", Enemy health: " << enemy.getHealth() << std::endl;
-        std::cout << "You attack! Enemy takes " << enemy.takeDamage(getRandomInt(1, 4)) << " damage" << std::endl;
-        isPlayerTurn = false;
-    // }
-    // else {
-    //     selected = false;
-    // }
+    std::cout << "\nPLAYER TURN" << std::endl;
+    std::cout << "-----------------\nHealth: " << player.getHealth() << ", Enemy health: " << enemy.getHealth() << std::endl;
+    std::cout << "You attack! Enemy takes " << enemy.takeDamage(getRandomInt(1, 4)) << " damage" << std::endl;
+    isPlayerTurn = false;
 }
 
 void BattleSystem::handleEnemyTurn() {
