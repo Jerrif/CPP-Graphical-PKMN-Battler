@@ -1,13 +1,14 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <string>
-
 #include "Message.hpp"
 // #include "System.hpp"
 
 // Every system that needs to recieve messages needs to be included here
 // ^ WRONG! every system needs to be forward declared here
+
+#include <SDL2/SDL.h>
+#include <string>
+#include <vector>
 
 class System;
 class Message;
@@ -26,8 +27,9 @@ public:
 private:
     // this is just some arbitrary number I picked right now
     static const int MAX_SYSTEMS = 12;
-    int attachedSystems = 0;
-    System* systems[MAX_SYSTEMS] = {};
+    // int attachedSystems = 0;
+    // System* systems[MAX_SYSTEMS] = {};
+    std::vector<System*> systems;
 
     static const int MAX_MESSAGES = 12;
     int pendingMessages = 0;

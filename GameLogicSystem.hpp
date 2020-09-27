@@ -2,10 +2,11 @@
 
 #include "System.hpp"
 #include "CharacterData.hpp"
-#include "BattleSystem.hpp"
+// #include "BattleSystem.hpp"
 // #include "Monster.hpp"
 
 class Monster;
+class BattleSystem;
 
 class GameLogicSystem : public System {
 public:
@@ -23,12 +24,12 @@ public:
 
     void printMonsterInfo(Monster* m);
 
-    void attachToMessageBus();
-    void detachFromMessageBus();
-    BattleSystem* createBattle(Monster& playerMonster, Monster& wildMonster);
+    void attachToMessageBus(System* s);
+    void detachFromMessageBus(System* s);
 
-    void startBattle();
-    void endBattle();
+    BattleSystem* createBattle(Monster& playerMonster, Monster& wildMonster);
+    void startBattle(); // necessary?
+    void endBattle(System* battle);
 
 private:
 

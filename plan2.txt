@@ -79,3 +79,9 @@ game logic -> battle start
 
 gameLogicSystem should probably be used right from the start
 it should be responsible for opening up the main menu when the game is launched
+
+
+NOTE: TODO: IMPORTANT:
+THE msgBus POINTER IN System SHOULD MAYBE PROBABLY DEFINITELY BE STATIC,
+THEN YOU JUST SET IT ONCE, AND EVERYTHING HAS IT; YOU DON'T NEED TO KEEP
+ATTACHING THINGS TO THE MESSAGE BUS!

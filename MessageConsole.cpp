@@ -3,6 +3,7 @@
 
 MessageConsole::MessageConsole() {
     printf("Constructor:\tMessageConsole\n");
+    systemName = "MessageConsole";
 }
 
 MessageConsole::~MessageConsole() {

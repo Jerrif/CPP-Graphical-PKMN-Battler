@@ -1,4 +1,5 @@
 #include "BattleSystem.hpp"
+#include "GuiBattleCommands.hpp"
 
 #include "Monster.hpp"
 #include "RNG.hpp"
@@ -10,10 +11,12 @@ BattleSystem::BattleSystem(Monster& playerMonster, Monster& enemyMonster)
 : player{playerMonster}, enemy{enemyMonster} {
 // BattleSystem::BattleSystem() {
     printf("Constructor:\tBattleSystem\n");
+    systemName = "BattleSystem";
 }
 
 BattleSystem::~BattleSystem() {
     printf("Destructor:\tBattleSystem\n");
+    detachFromMessageBus(guiBattleCommands);
 }
 
 void BattleSystem::handleMessage(Message& msg) {
@@ -21,16 +24,21 @@ void BattleSystem::handleMessage(Message& msg) {
         case Message::BATTLE_MENU_OPEN:
         
         break;
+
+        case Message::BATTLE_MENU_RUN:
+        printf("You run from battle!\n");
+        battleRunning = false;
+        postMessage(Message::BATTLE_END);
+        break;
     
         default:
         break;
     }
 }
 
-// void BattleSystem::initBattle(Monster& playerMonster, Monster& enemyMonster) {
-    // player = playerMonster;
-    // enemy = enemyMonster;
-// }
+void BattleSystem::initBattle() {
+    attachToMessageBus(guiBattleCommands);
+}
 
 void BattleSystem::printMonsters() {
     player.printInfo();
@@ -80,4 +88,15 @@ void BattleSystem::handleEnemyTurn() {
     std::cout << "\nENEMY TURN" << std::endl;
     isPlayerTurn = true;
     std::cout << "Enemy attacks! You take " << player.takeDamage(getRandomInt(1, 2)) << " damage" << std::endl;
+}
+
+void BattleSystem::attachToMessageBus(System& s) {
+    // assert(s != NULL && msgBus != NULL);
+    msgBus->attachToSystem(guiBattleCommands);
+    msgBus->printSystemAddresses();
+}
+
+void BattleSystem::detachFromMessageBus(System& s) {
+    // assert(s != NULL);
+    msgBus->detachSystem(guiBattleCommands);
 }

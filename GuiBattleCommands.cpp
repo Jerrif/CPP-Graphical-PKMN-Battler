@@ -4,6 +4,7 @@
 
 GuiBattleCommands::GuiBattleCommands() {
     printf("Constructor:\tGuiBattleCommands\n");
+    systemName = "GuiBattleCommands";
     printf("Loading buttons?\n");
     addButton("Fight!", Message::BATTLE_MENU_FIGHT, 0, 0);
     addButton("Bag!", Message::BATTLE_MENU_BAG, 1, 0);
@@ -128,21 +129,21 @@ void GuiBattleCommands::handleMessage(Message& msg) {
         postMessage(myMsg.type);
         break;
 
-        case Message::BATTLE_MENU_FIGHT:
-        // printf("\nGuiBattleCommands:\tFight\n");
-        break;
+        // case Message::BATTLE_MENU_FIGHT:
+        // // printf("\nGuiBattleCommands:\tFight\n");
+        // break;
 
-        case Message::BATTLE_MENU_BAG:
-        // printf("GuiBattleCommands:\tBag\n");
-        break;
+        // case Message::BATTLE_MENU_BAG:
+        // // printf("GuiBattleCommands:\tBag\n");
+        // break;
 
-        case Message::BATTLE_MENU_PKMN:
-        // printf("GuiBattleCommands:\tPKMN\n");
-        break;
+        // case Message::BATTLE_MENU_PKMN:
+        // // printf("GuiBattleCommands:\tPKMN\n");
+        // break;
 
-        case Message::BATTLE_MENU_RUN:
-        // printf("GuiBattleCommands:\tRun\n");
-        break;
+        // case Message::BATTLE_MENU_RUN:
+        // // printf("GuiBattleCommands:\tRun\n");
+        // break;
 
         case Message::BATTLE_MENU_CLOSE:
         // printf("GuiBattleCommands:\tBattle menu closed\n");

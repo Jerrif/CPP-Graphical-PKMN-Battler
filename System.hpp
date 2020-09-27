@@ -2,6 +2,7 @@
 
 #include "MessageBus.hpp"
 #include "Message.hpp"
+#include <cassert> // TODO: Remove when done?
 
 // forward declare MessageBus (is this needed?)
 // class MessageBus;
@@ -18,7 +19,8 @@ public:
     void postMessage(Message::types messageType);
 
 protected:
-    MessageBus* msgBus;
+    std::string systemName = "System";
+    MessageBus* msgBus = NULL;
     // each derived class of this will have its own instance of Message
     Message myMsg {};
 };

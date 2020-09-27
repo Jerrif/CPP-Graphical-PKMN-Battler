@@ -4,6 +4,7 @@
 
 GuiSystem::GuiSystem() {
     printf("Constructor:\tGuiSystem\n");
+    systemName = "GuiSystem";
 }
 
 GuiSystem::~GuiSystem() {

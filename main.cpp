@@ -45,7 +45,7 @@ int main(int arg, char *argv[]) {
     InputSystem inputSystem{};
     AudioSystem audioSystem{};
     GuiMainMenu guiMainMenu{};
-    GuiBattleCommands guiBattleCommands{};
+    // GuiBattleCommands guiBattleCommands{};
     GameLogicSystem gameLogicSystem{};
     // BattleSystem battleSystem{};
 
@@ -53,8 +53,9 @@ int main(int arg, char *argv[]) {
     msgBus->MessageBus::attachToSystem(inputSystem);
     msgBus->MessageBus::attachToSystem(audioSystem);
     msgBus->MessageBus::attachToSystem(guiMainMenu);
-    msgBus->MessageBus::attachToSystem(guiBattleCommands);
     msgBus->MessageBus::attachToSystem(gameLogicSystem);
+
+    // msgBus->MessageBus::attachToSystem(guiBattleCommands);
     // msgBus->MessageBus::attachToSystem(battleSystem);
 
     if( !init() ) {

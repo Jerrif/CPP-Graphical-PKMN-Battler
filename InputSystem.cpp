@@ -4,6 +4,7 @@
 
 InputSystem::InputSystem() {
     printf("Constructor:\tInputSystem\n");
+    systemName = "InputSystem";
 }
 
 InputSystem::~InputSystem() {

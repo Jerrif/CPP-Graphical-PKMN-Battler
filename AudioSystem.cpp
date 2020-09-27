@@ -4,6 +4,7 @@
 
 AudioSystem::AudioSystem() {
     printf("Constructor:\tAudioSystem\n");
+    systemName = "AudioSystem";
 }
 
 AudioSystem::~AudioSystem() {

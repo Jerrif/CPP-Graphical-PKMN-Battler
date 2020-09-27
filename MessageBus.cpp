@@ -14,39 +14,33 @@ MessageBus::~MessageBus() {
 
 void MessageBus::printSystemAddresses() {
     // just for debugging
-    for(int i=0; i < MAX_SYSTEMS; ++i) {
-        if(systems[i] != NULL) {
-            std::cout << "System: " << &systems[i] << std::endl;
-            std::cout << "System: " << systems[i] << std::endl;
+    for(auto & element : systems) {
+        if(element != NULL) {
+            // std::cout << "System: " << &element << std::endl; // don't know what this is
+            std::cout << "System: " << element << std::endl; // this is the actual address of the thing
         }
     }
 }
 
 void MessageBus::detachSystem(System& system) {
-    // for now, this is used just for detaching a battle when it is over
-    for(int i=0; i < MAX_SYSTEMS; ++i) {
-        if(systems[i] != NULL && systems[i] == &system) {
-            std::cout << "Detaching system: " << i << " at: " << systems[i] << std::endl;
-            systems[i] = NULL;
-            attachedSystems--;
+    for(size_t i = 0; i < systems.size(); ++i ) {
+        if(systems[i] == &system) {
+            std::cout << "Detaching system " << i << " at: " << systems[i] << std::endl;
+            systems.erase(systems.begin() + i);
+            // attachedSystems--;
+            return;
         }
     }
 }
 
 void MessageBus::attachToSystem(System& system) {
-    for(int i=0; i < MAX_SYSTEMS; ++i) {
-        if(systems[i] != NULL) {
-            // find the first empty slot for a system
-            continue;
-        }
-        systems[i] = &system;
-        printf("Message bus attached to System at index: %i\n", i);
-        attachedSystems++;
+    systems.push_back(&system);
+    printf("Message bus attached to System. Size: %llu\n", systems.size());
+    // attachedSystems++;
 
-        system.msgBus = this;
+    system.msgBus = this;
 
-        return;
-    }
+    return;
 }
 
 // testing out a queue system. This is basically "addToQueue" right now
@@ -62,8 +56,8 @@ void MessageBus::sendMessages() {
         return;
     }
     for(int i=0; i < pendingMessages; i++) {
-    // printf("Posting message: %i\n", messageQueue[i].type);
-        for(int j=0; j < attachedSystems; ++j) {
+        // for(auto & system : systems) {
+        for(size_t j = 0; j < systems.size(); ++j ) {
             systems[j]->handleMessage(messageQueue[i]);
         }
         // printf("Done posting message: %i\n", messageQueue[i].type);

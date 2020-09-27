@@ -4,6 +4,7 @@
 
 GuiMainMenu::GuiMainMenu() {
     printf("Constructor:\tGuiMainMenu\n");
+    systemName = "GuiMainMenu";
     printf("Loading buttons?\n");
     addButton("Start!", Message::GAME_START);
     addButton("Options!", Message::GUI_OPTIONS_OPEN);
