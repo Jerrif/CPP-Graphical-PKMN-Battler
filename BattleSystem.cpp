@@ -22,13 +22,7 @@ BattleSystem::~BattleSystem() {
 void BattleSystem::handleMessage(Message& msg) {
     switch (msg.type) {
         case Message::BATTLE_MENU_FIGHT:
-        if(!isBattleOver()) {
-            updateBattle();
-        } else {
-            printf("BATTLE OVER!\n");
-            battleRunning = false;
-            postMessage(Message::BATTLE_END);
-        }
+        updateBattle();
         break;
 
         case Message::BATTLE_MENU_RUN:
@@ -39,6 +33,16 @@ void BattleSystem::handleMessage(Message& msg) {
     
         default:
         break;
+    }
+
+    /* okay, this is probably bad? Right now, there's no general 'update' method;
+    each message sent on the message bus is basically the global 'update' call.
+    so this just checks for battle win after the message has been handled in here */
+    if(isBattleOver()) {
+        Monster& winner = getWinner();
+        printf("Winner:\t");
+        winner.printInfo();
+        postMessage(Message::BATTLE_END);
     }
 }
 
@@ -52,24 +56,14 @@ void BattleSystem::printMonsters() {
 }
 
 void BattleSystem::updateBattle() {
-    if(!isBattleOver()) {
-        handlePlayerTurn();
-    }
+    handlePlayerTurn();
     if(!isBattleOver()) {
         handleEnemyTurn();
-    }
-    if(isBattleOver()) {
-        battleRunning = false;
-        printf("BATTLE OVER!123\n");
-        postMessage(Message::BATTLE_END);
     }
 }
 
 bool BattleSystem::isBattleOver() { 
     if (player.getHealth() <= 0 || enemy.getHealth() <= 0) {
-        Monster& winner = getWinner();
-        printf("Winner:\t");
-        winner.printInfo();
         return true;
     }
     return false;
@@ -86,14 +80,14 @@ Monster& BattleSystem::getWinner() {
 void BattleSystem::handlePlayerTurn() {
     std::cout << "\nPLAYER TURN" << std::endl;
     std::cout << "-----------------\nHealth: " << player.getHealth() << ", Enemy health: " << enemy.getHealth() << std::endl;
-    std::cout << "You attack! Enemy takes " << enemy.takeDamage(getRandomInt(1, 4)) << " damage" << std::endl;
+    std::cout << "You attack! Enemy takes " << enemy.takeDamage(getRandomInt(1, 5)) << " damage" << std::endl;
     isPlayerTurn = false;
 }
 
 void BattleSystem::handleEnemyTurn() {
     std::cout << "\nENEMY TURN" << std::endl;
+    std::cout << "Enemy attacks! You take " << player.takeDamage(getRandomInt(1, 5)) << " damage" << std::endl;
     isPlayerTurn = true;
-    std::cout << "Enemy attacks! You take " << player.takeDamage(getRandomInt(1, 2)) << " damage" << std::endl;
 }
 
 void BattleSystem::attachToMessageBus(System& s) {

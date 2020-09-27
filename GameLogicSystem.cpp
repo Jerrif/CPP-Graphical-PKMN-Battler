@@ -53,6 +53,10 @@ void GameLogicSystem::handleMessageGamePaused(Message& msg) {
 void GameLogicSystem::handleMessageGameRunning(Message& msg) {
     switch(msg.type) {
         case Message::BATTLE_START:
+        if(playerMonster->getHealth() <= 0) {
+            printf("Your monster is dead!\n");
+        break;
+        }
         if(!inBattle) {
             printf("Starting another battle from GLS\n");
             startBattle();
