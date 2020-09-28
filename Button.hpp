@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Message.hpp"
+#include "LTexture.hpp"
 #include <iostream>
 
 class Button {
@@ -19,4 +20,8 @@ private:
     Message::types tempMsg;
     bool selected {false};
     Message* buttonMessage = new Message{};
+
+    // graphics
+    // LTexture selectedTexture{renderer};
+
 };

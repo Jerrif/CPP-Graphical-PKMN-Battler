@@ -2,6 +2,10 @@
 
 #include "MessageBus.hpp"
 #include "Message.hpp"
+
+// TEXTURE TESTING
+#include <SDL2/SDL.h>
+
 #include <cassert> // TODO: Remove when done?
 
 // forward declare MessageBus (is this needed?)
@@ -18,9 +22,17 @@ public:
     virtual void handleMessage(Message& msg) = 0;
     void postMessage(Message::types messageType);
 
+    // TEXTURE TESTING
+    void attachRenderer(SDL_Renderer* r);
+
 protected:
     std::string systemName = "System";
     MessageBus* msgBus = NULL;
     // each derived class of this will have its own instance of Message
     Message myMsg {};
+
+    // TEXTURE TESTING
+    /* NOTE: static variables just need to be defined in exactly one of your source files:
+    http://www.cs.technion.ac.il/users/yechiel/c++-faq/link-errs-static-data-mems.html */ 
+    static SDL_Renderer* renderer;
 };

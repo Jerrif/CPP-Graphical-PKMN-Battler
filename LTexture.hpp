@@ -7,20 +7,18 @@
 
 class LTexture {
 public:
-    // LTexture(SDL_Renderer* r);
-    LTexture();
+    LTexture(SDL_Renderer* r);
+    // LTexture();
 
     ~LTexture();
 
     // loads image at specified path
-    bool loadFromFile(SDL_Renderer* renderer, std::string path);
-
-    // creates image from font string
-    bool loadFromRenderedText(SDL_Renderer* renderer, std::string textureText, SDL_Color textColor, TTF_Font* font);
+    bool loadFromFile(std::string path);
 
     // renders the texture to mRenderer
     // void render(SDL_Renderer* renderer, int x, int y);
-    void render(SDL_Renderer* renderer, int x, int y, SDL_Rect* sourceRenderQuad = NULL, bool stretchToViewport = false);
+    // void render(SDL_Renderer* renderer, int x, int y, SDL_Rect* sourceRenderQuad = NULL, bool stretchToViewport = false);
+    void render(int x, int y, SDL_Rect* sourceRenderQuad = NULL, bool stretchToViewport = false);
 
     int getWidth();
     int getHeight();
@@ -31,7 +29,7 @@ private:
     // the actual hardware texture
     SDL_Texture* mTexture;
 
-    // SDL_Renderer* mRenderer;
+    SDL_Renderer* renderer = NULL;
 
     // image dimensions
     int mWidth;

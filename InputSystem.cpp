@@ -1,5 +1,7 @@
 #include "InputSystem.hpp"
-// #include "Message.hpp"
+
+#include <SDL2/SDL.h>
+
 #include <iostream>
 
 InputSystem::InputSystem() {

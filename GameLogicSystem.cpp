@@ -2,12 +2,20 @@
 #include "CharacterData.hpp"
 #include "Monster.hpp"
 #include "BattleSystem.hpp"
+
+// TEXTURE TESTING
+#include "LTexture.hpp"
+
+#include <SDL2/SDL.h>
+
 #include <iostream>
 #include <cassert>
 
 GameLogicSystem::GameLogicSystem() {
     printf("Constructor:\tGameLogicSystem\n");
     systemName = "GameLogicSystem";
+    // TEXTURE TESTING
+    tex = new LTexture{renderer};
 }
 
 GameLogicSystem::~GameLogicSystem() {
@@ -26,10 +34,32 @@ void GameLogicSystem::handleMessage(Message& msg) {
     } else {
         handleMessageGamePaused(msg);
     }
+
+    // TEXTURE TESTING
+    std::cout << "Renderer GLS: " << renderer << "\n" << std::endl;
+    tex->loadFromFile(bulbasaur.battleBackPath);
+    tex->render(x, y, NULL, NULL);
 }
+
+// void GameLogicSystem::attachRenderer(SDL_Renderer* ren) {
+//     r = ren;
+//     // System::testRenderer = ren;
+//     std::cout << "Test Renderer GLS: " << testRenderer << "\n" << std::endl;
+//     attachRenderer123(ren);
+//     std::cout << "Test Renderer GLS after: " << testRenderer << "\n" << std::endl;
+//     tex->loadFromFile(r, bulbasaur.battleBackPath);
+// }
 
 void GameLogicSystem::handleMessageGamePaused(Message& msg) {
     switch(msg.type) {
+        // TEXTURE TESTING
+        case Message::GUI_RIGHT_PRESSED:
+        x+= 20;
+        break;
+        case Message::GUI_LEFT_PRESSED:
+        x-= 20;
+        break;
+
         case Message::GAME_START:
         printf("=====================\n");
         printf("=   GAME STARTING   =\n");

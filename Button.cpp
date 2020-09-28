@@ -1,4 +1,5 @@
 #include "Button.hpp"
+#include "LTexture.hpp"
 #include <iostream>
 
 Button::Button(std::string pButtonText, Message::types msgType, bool pSelected) : buttonText{pButtonText}, tempMsg{msgType}, selected{pSelected} {

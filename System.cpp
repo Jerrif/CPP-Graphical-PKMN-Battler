@@ -4,6 +4,15 @@
 
 #include <iostream>
 
+// NOTE: static variables just need to be defined in exactly one of your source files:
+SDL_Renderer* System::renderer = NULL;
+
+void System::attachRenderer(SDL_Renderer* r) {
+    std::cout << "Test Renderer before: " << renderer << "\n" << std::endl;
+    renderer = r;
+    std::cout << "Test Renderer after: " << renderer << "\n" << std::endl;
+}
+
 System::~System() {
 }
 

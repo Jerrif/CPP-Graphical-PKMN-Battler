@@ -24,6 +24,5 @@ void AudioSystem::handleMessage(Message& msg) {
 }
 
 void AudioSystem::playSound(std::string soundPath) {
-    // std::cout << "Playing sound: " << soundPath << std::endl;
     // printf("Playing sound: \t%s\n", soundPath.c_str());
 }

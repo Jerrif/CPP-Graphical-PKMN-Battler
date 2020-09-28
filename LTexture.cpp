@@ -4,11 +4,12 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include <iostream>
 
-// LTexture::LTexture(SDL_Renderer* r) {
-LTexture::LTexture() {
+LTexture::LTexture(SDL_Renderer* r) {
+// LTexture::LTexture() {
     printf("Constructor:\tLTexture\n");
-    // mRenderer = r;
+    renderer = r;
     mTexture = NULL;
     mWidth = 0;
     mHeight = 0;
@@ -19,7 +20,7 @@ LTexture::~LTexture() {
     free();
 }
 
-bool LTexture::loadFromFile(SDL_Renderer* renderer, std::string path) {
+bool LTexture::loadFromFile(std::string path) {
     // get rid of preexisting texture
     free();
 
@@ -51,13 +52,8 @@ bool LTexture::loadFromFile(SDL_Renderer* renderer, std::string path) {
     return mTexture != NULL;
 }
 
-bool LTexture::loadFromRenderedText(SDL_Renderer* renderer, std::string textureText, SDL_Color textColor, TTF_Font* font) {
-    // TODO
-    return false;
-}
-
 // void LTexture::render(SDL_Renderer* renderer, int x, int y, SDL_Rect* sourceRenderQuad = NULL, SDL_Rect* destRenderQuad = NULL) {
-void LTexture::render(SDL_Renderer* renderer, int x, int y, SDL_Rect* sourceRenderQuad, bool stretchToViewport) {
+void LTexture::render(int x, int y, SDL_Rect* sourceRenderQuad, bool stretchToViewport) {
     if (mTexture == NULL || renderer == NULL) {
         printf("mTexture or mRenderer was NULL when attempting to render a sprite to screen\n");
         return;

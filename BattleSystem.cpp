@@ -12,6 +12,7 @@ BattleSystem::BattleSystem(Monster& playerMonster, Monster& enemyMonster)
 // BattleSystem::BattleSystem() {
     printf("Constructor:\tBattleSystem\n");
     systemName = "BattleSystem";
+    std::cout << "Test Renderer BATTLE: " << renderer << "\n" << std::endl;
 }
 
 BattleSystem::~BattleSystem() {

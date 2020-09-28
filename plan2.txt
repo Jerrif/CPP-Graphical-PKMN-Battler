@@ -85,3 +85,36 @@ NOTE: TODO: IMPORTANT:
 THE msgBus POINTER IN System SHOULD MAYBE PROBABLY DEFINITELY BE STATIC,
 THEN YOU JUST SET IT ONCE, AND EVERYTHING HAS IT; YOU DON'T NEED TO KEEP
 ATTACHING THINGS TO THE MESSAGE BUS!
+
+
+-------------- Rendering --------------
+OKAY. Basically, the engine should be split up into 2 overarching classes:
+1. Systems (basically abstract things that don't need to be rendered)
+2. GameObjects are anything that are not systems(?)
+     GameObjects are things that are rendered
+     GameObject class holds a static reference to the renderer
+     GUI System can remain a system; it holds GameObjects (buttons, background etc)
+
+
+
+RenderSystem?
+has a reference to the renderer
+a vector of LTextures to render
+
+<- LOAD_TEXTURE: string path;
+createTexture(path);
+add to LTexture array
+
+<- RENDER: x, y;
+LTextureArray[i].render(x, y, etc);
+
+<- UNLOAD_TEXTURE: 
+
+
+System:
+
+
+Monster:
+
+
+Button:

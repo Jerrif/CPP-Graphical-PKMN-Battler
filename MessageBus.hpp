@@ -6,7 +6,7 @@
 // Every system that needs to recieve messages needs to be included here
 // ^ WRONG! every system needs to be forward declared here
 
-#include <SDL2/SDL.h>
+// #include <SDL2/SDL.h>
 #include <string>
 #include <vector>
 

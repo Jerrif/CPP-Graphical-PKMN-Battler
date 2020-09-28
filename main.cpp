@@ -11,9 +11,7 @@
 #include "AudioSystem.hpp"
 #include "GuiSystem.hpp"
 #include "GuiMainMenu.hpp"
-#include "GuiBattleCommands.hpp"
 #include "GameLogicSystem.hpp"
-#include "BattleSystem.hpp"
 
 // data includes
 #include "CharacterData.hpp"
@@ -39,25 +37,7 @@ int main(int arg, char *argv[]) {
 
     LWindow gameWindow{SCREEN_WIDTH, SCREEN_HEIGHT};
 
-    MessageBus* msgBus = new MessageBus{};
-
-    MessageConsole messageConsole{};
-    InputSystem inputSystem{};
-    AudioSystem audioSystem{};
-    GuiMainMenu guiMainMenu{};
-    // GuiBattleCommands guiBattleCommands{};
-    GameLogicSystem gameLogicSystem{};
-    // BattleSystem battleSystem{};
-
-    msgBus->MessageBus::attachToSystem(messageConsole);
-    msgBus->MessageBus::attachToSystem(inputSystem);
-    msgBus->MessageBus::attachToSystem(audioSystem);
-    msgBus->MessageBus::attachToSystem(guiMainMenu);
-    msgBus->MessageBus::attachToSystem(gameLogicSystem);
-
-    // msgBus->MessageBus::attachToSystem(guiBattleCommands);
-    // msgBus->MessageBus::attachToSystem(battleSystem);
-
+    // initialize SDL and create the game window / renderer
     if( !init() ) {
         printf("Yo can't init SDL stuff\n");
         return EXIT_FAILURE;
@@ -69,7 +49,28 @@ int main(int arg, char *argv[]) {
     }
 
     const auto renderer = gameWindow.getRenderer();
-    std::cout << "Renderer: " << &renderer << "\n" << std::endl;
+    std::cout << "Renderer: " << renderer << "\n" << std::endl;
+
+    /* create each system and attach to message bus (a better way to do this
+    is probably to use a static pointer in System to the MessageBus, like with the renderer) */
+    MessageBus* msgBus = new MessageBus{};
+
+    MessageConsole messageConsole{};
+    // TEXTURE TESTING
+    // pass a pointer to the renderer into a static variable shared by all System subclasses
+    messageConsole.attachRenderer(renderer);
+    InputSystem inputSystem{};
+    AudioSystem audioSystem{};
+    GuiMainMenu guiMainMenu{};
+    GameLogicSystem gameLogicSystem{};
+
+    msgBus->MessageBus::attachToSystem(messageConsole);
+    msgBus->MessageBus::attachToSystem(inputSystem);
+    msgBus->MessageBus::attachToSystem(audioSystem);
+    // I should probably attach/detach the main menu in the same way that I do with the battle GUI?
+    msgBus->MessageBus::attachToSystem(guiMainMenu);
+    msgBus->MessageBus::attachToSystem(gameLogicSystem);
+
 
     SDL_Event e;
     bool quit = false;
@@ -87,9 +88,8 @@ int main(int arg, char *argv[]) {
             inputSystem.handleInput(e);
         }
         msgBus->sendMessages();
-        // gameLogicSystem.update();
 
-        gameWindow.clearScreen();
+        // gameWindow.clearScreen();
         gameWindow.render();
     }
 
