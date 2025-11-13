@@ -2,8 +2,10 @@
 // #include "Message.hpp"
 // #include "MessageBus.hpp"
 
+#include <SDL2/SDL.h>
 #include <iostream>
 
+// TEXTURE TESTING
 // NOTE: static variables just need to be defined in exactly one of your source files:
 SDL_Renderer* System::renderer = NULL;
 

@@ -3,7 +3,6 @@
 #include "MessageBus.hpp"
 #include "Message.hpp"
 
-// TEXTURE TESTING
 #include <SDL2/SDL.h>
 
 #include <cassert> // TODO: Remove when done?

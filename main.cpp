@@ -51,6 +51,10 @@ int main(int arg, char *argv[]) {
     const auto renderer = gameWindow.getRenderer();
     std::cout << "Renderer: " << renderer << "\n" << std::endl;
 
+    // TEXTURE TESTING
+    Button dummyButton{"NULL", Message::NULL_MSG, NULL, false};
+    dummyButton.attachRenderer(renderer);
+
     /* create each system and attach to message bus (a better way to do this
     is probably to use a static pointer in System to the MessageBus, like with the renderer) */
     MessageBus* msgBus = new MessageBus{};
@@ -71,6 +75,9 @@ int main(int arg, char *argv[]) {
     msgBus->MessageBus::attachToSystem(guiMainMenu);
     msgBus->MessageBus::attachToSystem(gameLogicSystem);
 
+    // TEXTURE TESTING
+    // pass a pointer to the renderer into a static variable shared by all System subclasses
+    // messageConsole.attachRenderer(renderer);
 
     SDL_Event e;
     bool quit = false;
@@ -87,9 +94,11 @@ int main(int arg, char *argv[]) {
             }
             inputSystem.handleInput(e);
         }
-        msgBus->sendMessages();
+        gameWindow.clearScreen();
 
-        // gameWindow.clearScreen();
+        msgBus->sendMessages();
+        guiMainMenu.update();
+
         gameWindow.render();
     }
 

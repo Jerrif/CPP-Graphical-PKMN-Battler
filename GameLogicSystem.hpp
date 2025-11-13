@@ -3,11 +3,6 @@
 #include "System.hpp"
 #include "CharacterData.hpp"
 
-// TEXTURE TESTING
-#include "LTexture.hpp"
-
-#include <SDL2/SDL.h>
-
 class Monster;
 class BattleSystem;
 
@@ -28,15 +23,7 @@ public:
 
     void update();
 
-    // TEXTURE TESTING
-
 private:
-
-    // TEXTURE TESTING
-    // SDL_Renderer* r;
-    LTexture* tex;
-    int x=150;
-    int y=150;
 
     void destroyPlayerMonster();
     void destroyWildMonster();
